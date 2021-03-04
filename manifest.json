@@ -1,0 +1,19 @@
+{
+    "name": "Duck Duck Google",
+    "version": "1.0",
+    "description": "Sometimes Duck Duck Go isn't perfect, here is a bailout that adds a simple button to duck duck go to google your term.",
+    "content_scripts": [
+        {
+          "matches": ["https://*.duckduckgo.com/*"],
+          "run_at": "document_start",
+          "js": ["duckDuckGoogle.js"],
+          "css": ["duck-duck.styles.css"]
+        }
+      ],
+    "icons": { 
+      "16": "images/duckduckgoogle_16.png",
+      "48": "images/duckduckgoogle_48.png",
+      "128": "images/duckduckgoogle_128.png" 
+    },
+    "manifest_version": 2
+  }

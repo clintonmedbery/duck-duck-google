@@ -1,0 +1,15 @@
+.google-button {
+    float: right;
+    font-family: inherit;
+    text-decoration: none;
+	color: #666;
+	font-size: 1em;
+	position: relative;
+    height: 37px;
+    font-weight: 500;
+    border: none;
+    background-color: transparent;
+    margin-left: .5em;
+    margin: 0 7px;
+    line-height: 41px;
+}

@@ -5,15 +5,15 @@
     "content_scripts": [
         {
           "matches": ["https://*.duckduckgo.com/*"],
-          "run_at": "document_start",
+          "run_at": "document_idle",
           "js": ["duckDuckGoogle.js"],
           "css": ["duck-duck.styles.css"]
         }
       ],
-    "icons": { 
+    "icons": {
       "16": "images/duckduckgoogle_16.png",
       "48": "images/duckduckgoogle_48.png",
-      "128": "images/duckduckgoogle_128.png" 
+      "128": "images/duckduckgoogle_128.png"
     },
-    "manifest_version": 2
+    "manifest_version": 3
   }

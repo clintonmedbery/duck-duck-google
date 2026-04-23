@@ -1,47 +1,37 @@
-window.onload = function() {
-	console.log("hello world")
-	const searchElements = document.getElementsByClassName('header__search-wrap');
-	
-	console.log(searchElements)
-	if(searchElements.length <= 0) return null
-	console.log(searchElements)
-	// creating the span element, then add a class attribute	
-	let buttonEl = document.createElement('button')
-	buttonEl.id = 'google-button'
-	buttonEl.className = "google-button";
-	buttonEl.innerText = "Search in Google";
-	buttonEl.onclick = clickHandler
+function injectButton() {
+	if (document.getElementById('google-button')) return;
 
-	// add the <a> element tree into the div#something
-	searchElements[0].appendChild(buttonEl);
+	const nav = document.querySelector('nav');
+	if (!nav) return;
 
+	const lists = nav.querySelectorAll('ul');
+	// The nav has two lists: left (All, Images, etc.) and right (Search Assist, Duck.ai, Settings).
+	// We inject into the right-side list.
+	const rightList = lists[1];
+	if (!rightList) return;
+
+	const buttonEl = document.createElement('button');
+	buttonEl.id = 'google-button';
+	buttonEl.className = 'google-button';
+	buttonEl.innerText = 'Search in Google';
+	buttonEl.addEventListener('click', function () {
+		const input = document.getElementById('search_form_input');
+		if (!input || !input.value) return;
+		window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(input.value);
+	});
+
+	const li = document.createElement('li');
+	li.appendChild(buttonEl);
+	rightList.insertBefore(li, rightList.firstChild);
 }
 
-function clickHandler() {
-	const input = document.getElementById('search_form_input');
-	const url = 'https://www.google.com/search?q=' + encodeURIComponent(input.value);
-	urlRedirect(url)
-}
-
-// https://stackoverflow.com/a/53706698/3058839
-function urlRedirect(url) {
-	const X = setTimeout(function () {
-	  window.location.replace(url)
-	  return true
-	}, 300)
-  
-	if ((window.location = url)) {
-	  clearTimeout(X)
-	  return true
-	} else {
-	  if ((window.location.href = url)) {
-		clearTimeout(X)
-		return true
-	  } else {
-		clearTimeout(X)
-		window.location.replace(url)
-		return true
-	  }
+const observer = new MutationObserver(function () {
+	if (document.querySelector('nav ul:nth-child(2)')) {
+		injectButton();
 	}
-  }
-  
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Also attempt immediately in case the element is already present
+injectButton();
